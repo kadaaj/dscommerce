@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -33,11 +34,11 @@ public class Product {
     public Product(){
     }
 
-    public Product(Long id, String name, String descrption,
+    public Product(Long id, String name, String description,
                    Double price, String imgUrl) {
         this.id = id;
         this.name = name;
-        this.description = descrption;
+        this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
     }
@@ -92,5 +93,19 @@ public class Product {
 
     public List<Order> getOrders(){
         return items.stream().map(x -> x.getOrder()).toList();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+        return Objects.equals(id, product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
