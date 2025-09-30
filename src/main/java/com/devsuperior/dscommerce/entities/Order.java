@@ -10,8 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
-public class Order {
-
+public class Order
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,11 +30,11 @@ public class Order {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem>items = new HashSet<>();
 
-    public Order(){
-    }
+    public Order(){}
 
     public Order(Long id, Instant moment, OrderStatus status,
-                 User client, Payment payment) {
+                 User client, Payment payment)
+    {
         this.id = id;
         this.moment = moment;
         this.status = status;
@@ -91,7 +91,8 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -100,7 +101,6 @@ public class Order {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    public int hashCode() { return Objects.hash(id); }
+
 }

@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem {
-
+public class OrderItem
+{
     @EmbeddedId
     private OrderItemPk id = new OrderItemPk();
 
@@ -19,7 +19,8 @@ public class OrderItem {
 
     public OrderItem(){}
 
-    public OrderItem(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price)
+    {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
@@ -59,7 +60,8 @@ public class OrderItem {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -68,7 +70,5 @@ public class OrderItem {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    public int hashCode() { return Objects.hash(id); }
 }

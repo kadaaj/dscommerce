@@ -8,8 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
-public class Category {
-
+public class Category
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,10 +18,10 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
-    public Category(){
-    }
+    public Category(){}
 
-    public Category(Long id, String name) {
+    public Category(Long id, String name)
+    {
         this.id = id;
         this.name = name;
     }
@@ -30,9 +30,7 @@ public class Category {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -47,7 +45,8 @@ public class Category {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -56,7 +55,5 @@ public class Category {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+    public int hashCode() { return Objects.hash(id); }
 }
