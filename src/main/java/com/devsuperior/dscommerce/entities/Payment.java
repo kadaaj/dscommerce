@@ -7,8 +7,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_payment")
-public class Payment {
-
+public class Payment
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,41 +20,48 @@ public class Payment {
     @MapsId
     private Order order;
 
-    public Payment(){
-    }
+    public Payment(){}
 
-    public Payment(Long id, Instant moment, Order order) {
+    public Payment(Long id, Instant moment, Order order)
+    {
         this.id = id;
         this.moment = moment;
         this.order = order;
     }
 
-    public Long getId() {
+    public Long getId()
+    {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id)
+    {
         this.id = id;
     }
 
-    public Instant getMoment() {
+    public Instant getMoment()
+    {
         return moment;
     }
 
-    public void setMoment(Instant moment) {
+    public void setMoment(Instant moment)
+    {
         this.moment = moment;
     }
 
-    public Order getOrder() {
+    public Order getOrder()
+    {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Order order)
+    {
         this.order = order;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -63,7 +70,8 @@ public class Payment {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(id);
     }
 }

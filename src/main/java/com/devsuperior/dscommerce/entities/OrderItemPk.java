@@ -7,8 +7,8 @@ import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
 @Embeddable
-public class OrderItemPk {
-
+public class OrderItemPk
+{
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -36,7 +36,8 @@ public class OrderItemPk {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;  // ← CORRIGIDO!
         if (o == null || getClass() != o.getClass()) return false;
 
