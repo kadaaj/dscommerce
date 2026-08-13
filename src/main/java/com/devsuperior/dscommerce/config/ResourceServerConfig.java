@@ -104,6 +104,8 @@ public class ResourceServerConfig {
                 grantedAuthoritiesConverter
         );
 
+        jwtAuthenticationConverter.setPrincipalClaimName("username");
+
         return jwtAuthenticationConverter;
     }
 
