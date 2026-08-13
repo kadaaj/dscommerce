@@ -29,18 +29,20 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    @Transactional(readOnly = true)
-    public UserDTO getMe() {
+    protected User authenticated() {
 
         String username = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getName();
 
-        User user = repository.findByEmail(username)
+        return repository.findByEmail(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("Email não encontrado"));
+    }
 
-        return new UserDTO(user);
+    @Transactional(readOnly = true)
+    public UserDTO getMe() {
+        return new UserDTO(authenticated());
     }
 }
