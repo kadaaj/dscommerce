@@ -6,8 +6,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public class ProductDto
-{
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductDTO {
+
     private Long id;
 
     @Size(min = 3, max = 80, message = "Nome precisa ter de 3 a 80 caracteres")
@@ -20,10 +23,17 @@ public class ProductDto
 
     @Positive(message = "O preco deve ser positivo")
     private Double price;
+
     private String imgUrl;
 
-    public ProductDto(Long id, String name, String description, Double price, String imgUrl)
-    {
+    @NotEmpty(message = "Deve ter pelo menos uma categoria")
+    private List<CategoryDTO> categories = new ArrayList<>();
+
+    public ProductDTO() {
+    }
+
+    public ProductDTO(Long id, String name, String description,
+                      Double price, String imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,15 +41,15 @@ public class ProductDto
         this.imgUrl = imgUrl;
     }
 
-    public ProductDto() {}
-
-    public ProductDto(Product entity)
-    {
+    public ProductDTO(Product entity) {
         id = entity.getId();
         name = entity.getName();
         description = entity.getDescription();
         price = entity.getPrice();
         imgUrl = entity.getImgUrl();
+
+        entity.getCategories().forEach(category ->
+                categories.add(new CategoryDTO(category)));
     }
 
     public Long getId() {
@@ -60,5 +70,9 @@ public class ProductDto
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 }
