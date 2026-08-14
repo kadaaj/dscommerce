@@ -33,7 +33,8 @@ public class ResourceServerConfig {
     @Bean
     @Profile("test")
     @Order(1)
-    SecurityFilterChain h2SecurityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain h2SecurityFilterChain(HttpSecurity http)
+            throws Exception {
 
         http.securityMatcher(PathRequest.toH2Console());
 
@@ -51,22 +52,43 @@ public class ResourceServerConfig {
 
     @Bean
     @Order(3)
-    SecurityFilterChain rsSecurityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain rsSecurityFilterChain(HttpSecurity http)
+            throws Exception {
 
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(auth -> auth
 
-                .requestMatchers(HttpMethod.GET, "/products", "/products/**")
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/products",
+                        "/products/**"
+                )
                 .permitAll()
 
-                .requestMatchers(HttpMethod.POST, "/products", "/products/**")
+                .requestMatchers(
+                        HttpMethod.GET,
+                        "/categories"
+                )
+                .permitAll()
+
+                .requestMatchers(
+                        HttpMethod.POST,
+                        "/products",
+                        "/products/**"
+                )
                 .hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.PUT, "/products/**")
+                .requestMatchers(
+                        HttpMethod.PUT,
+                        "/products/**"
+                )
                 .hasRole("ADMIN")
 
-                .requestMatchers(HttpMethod.DELETE, "/products/**")
+                .requestMatchers(
+                        HttpMethod.DELETE,
+                        "/products/**"
+                )
                 .hasRole("ADMIN")
 
                 .anyRequest()
@@ -82,7 +104,9 @@ public class ResourceServerConfig {
         );
 
         http.cors(cors ->
-                cors.configurationSource(corsConfigurationSource())
+                cors.configurationSource(
+                        corsConfigurationSource()
+                )
         );
 
         return http.build();
@@ -94,7 +118,10 @@ public class ResourceServerConfig {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter =
                 new JwtGrantedAuthoritiesConverter();
 
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
+        grantedAuthoritiesConverter.setAuthoritiesClaimName(
+                "authorities"
+        );
+
         grantedAuthoritiesConverter.setAuthorityPrefix("");
 
         JwtAuthenticationConverter jwtAuthenticationConverter =
@@ -114,34 +141,52 @@ public class ResourceServerConfig {
 
         String[] origins = corsOrigins.split(",");
 
-        CorsConfiguration corsConfig = new CorsConfiguration();
+        CorsConfiguration corsConfig =
+                new CorsConfiguration();
 
-        corsConfig.setAllowedOriginPatterns(Arrays.asList(origins));
+        corsConfig.setAllowedOriginPatterns(
+                Arrays.asList(origins)
+        );
 
         corsConfig.setAllowedMethods(
-                Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH")
+                Arrays.asList(
+                        "POST",
+                        "GET",
+                        "PUT",
+                        "DELETE",
+                        "PATCH"
+                )
         );
 
         corsConfig.setAllowCredentials(true);
 
         corsConfig.setAllowedHeaders(
-                Arrays.asList("Authorization", "Content-Type")
+                Arrays.asList(
+                        "Authorization",
+                        "Content-Type"
+                )
         );
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", corsConfig);
+        source.registerCorsConfiguration(
+                "/**",
+                corsConfig
+        );
 
         return source;
     }
 
     @Bean
-    FilterRegistrationBean<CorsFilter> filterRegistrationBeanCorsFilter() {
+    FilterRegistrationBean<CorsFilter>
+    filterRegistrationBeanCorsFilter() {
 
         FilterRegistrationBean<CorsFilter> bean =
                 new FilterRegistrationBean<>(
-                        new CorsFilter(corsConfigurationSource())
+                        new CorsFilter(
+                                corsConfigurationSource()
+                        )
                 );
 
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
